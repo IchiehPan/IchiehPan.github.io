@@ -6,7 +6,7 @@ categories: code
 comments: true
 ---
 
-![](https://ichiehpan.github.io/images/微信截图_20190704145014.png)
+![]({{ "/assets/images/微信截图_20190704145014.png" | relative_url }})
 
 需要下载 jna.jar 和 platform.jar V4.1.0（参考http://my.oschina.net/penngo/blog/12356）：
 

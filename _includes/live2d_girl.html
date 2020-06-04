@@ -1,0 +1,35 @@
+<!--live2D看板娘-->
+<script src="{{ "/assets/js/L2Dwidget/L2Dwidget.min.js" | relative_url }}"></script>
+<script>
+function isMobile() {
+  let userAgentInfo = navigator.userAgent;
+  let Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+  for (let v = 0; v < Agents.length; v++) {
+    if (userAgentInfo.indexOf(Agents[v]) > 0) {
+      return true;
+    }
+  }
+  return false;
+}
+
+if(!isMobile()){
+  L2Dwidget.on('*', (name) => {
+    console.log('%c EVENT ' + '%c -> ' + name, 'background: #222; color: yellow', 'background: #fff; color: #000')
+  }).init({
+    dialog: {
+      // 开启对话框
+      enable: true,
+      script: {
+        // 每空闲 10 秒钟，显示一条一言
+        'every idle 10s': '$hitokoto$',
+        // 当触摸到星星图案
+        'hover .star': '星星在天上而你在我心里 (*/ω＼*)',
+        // 当触摸到角色身体
+        'tap body': '哎呀！别碰我！',
+        // 当触摸到角色头部
+        'tap face': '人家已经不是小孩子了！'
+      }
+    }
+  });
+}
+</script>

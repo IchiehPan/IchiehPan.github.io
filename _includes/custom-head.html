@@ -5,63 +5,8 @@
   2. Customize default _includes/custom-head.html in your source directory and insert the given code snippet.
 {% endcomment %}
 
-<!--友盟网络统计-->
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1277358179'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s23.cnzz.com/z_stat.php%3Fid%3D1277358179%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+<!--{%- include umeng_statistics.html -%}-->
 
-<!--live2D看板娘-->
-<script src="{{ "/assets/js/L2Dwidget/L2Dwidget.min.js" | relative_url }}"></script>
-<script>
-  function isMobile() {
-    let userAgentInfo = navigator.userAgent;
-    let Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
-    for (let v = 0; v < Agents.length; v++) {
-      if (userAgentInfo.indexOf(Agents[v]) > 0) {
-        return true;
-      }
-    }
-    return false;
-  }
+{%- include live2d_girl.html -%}
 
-  if(!isMobile()){
-    L2Dwidget.on('*', (name) => {
-      console.log('%c EVENT ' + '%c -> ' + name, 'background: #222; color: yellow', 'background: #fff; color: #000')
-    }).init({
-      dialog: {
-        // 开启对话框
-        enable: true,
-        script: {
-          // 每空闲 10 秒钟，显示一条一言
-          'every idle 10s': '$hitokoto$',
-          // 当触摸到星星图案
-          'hover .star': '星星在天上而你在我心里 (*/ω＼*)',
-          // 当触摸到角色身体
-          'tap body': '哎呀！别碰我！',
-          // 当触摸到角色头部
-          'tap face': '人家已经不是小孩子了！'
-        }
-      }
-    });
-  }
-</script>
-
-<!--gitalk留言板-->
-<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">-->
-<!--<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>-->
-<!--&lt;!&ndash; or &ndash;&gt;-->
-<!--&lt;!&ndash;<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">&ndash;&gt;-->
-<!--&lt;!&ndash;<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>&ndash;&gt;-->
-<!--<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>-->
-<!--<div id="gitalk-container"></div>-->
-<!--<script>-->
-<!--  let gitalk = new Gitalk({-->
-<!--    clientID: 'ad55d0f9c527d4c9ad4e',-->
-<!--    clientSecret: '584b922d52ce6c3f355de1864560446b1f2bf906',-->
-<!--    repo: 'ichiehpan.github.io',-->
-<!--    owner: 'ichiehpan',-->
-<!--    admin: ['ichiehpan'],-->
-<!--    id: md5(location.hostname), // Ensure uniqueness and length less than 50-->
-<!--    distractionFreeMode: false,  // Facebook-like distraction free mode-->
-<!--  })-->
-<!--  gitalk.render('gitalk-container')-->
-<!--</script>-->
-<!--</div>-->
+{%- include gitalk_comments.html -%}

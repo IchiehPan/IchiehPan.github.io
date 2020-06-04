@@ -2,7 +2,8 @@
 layout: post
 title:  ".NET WebAPI自定义多文档注释"
 date:   2019-10-16 11:28:36 +0800
-categories: blog
+categories: code
+comments: true
 ---
 
 首先右键打开api所在解决方案的属性
@@ -36,8 +37,8 @@ using WebApplication2.Areas.HelpPage.ModelDescriptions;
 
 namespace WebApplication2.Areas.HelpPage
 {
-    /// <summary>A custom 
-    /// <see cref="IDocumentationProvider"/> 
+    /// <summary>A custom
+    /// <see cref="IDocumentationProvider"/>
     /// that reads the API documentation from a collection of XML documentation files.
     /// </summary>
     public class MultiXmlDocumentationProvider : IDocumentationProvider, IModelDocumentationProvider

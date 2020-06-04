@@ -2,10 +2,11 @@
 layout: post
 title:  "VMware实现Nginx, Keepalived的负载均衡与多机热备"
 date:   2019-07-04 09:00:00 +0800
-categories: blog
+categories: config
+comments: true
 ---
 
-环境: 
+环境:
 Vmware 15.1
 ubuntu18 for server
 nginx1.14

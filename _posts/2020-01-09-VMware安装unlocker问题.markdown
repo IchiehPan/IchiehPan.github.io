@@ -2,7 +2,8 @@
 layout: post
 title:  "VMware安装unlocker问题"
 date:   2020-01-09 15:55:57 +0800
-categories: VM
+categories: config
+comments: true
 ---
 
 1.VMware15.1以上的版本无法使用unlocker

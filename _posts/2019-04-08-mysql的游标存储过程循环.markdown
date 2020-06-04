@@ -3,6 +3,7 @@ layout: post
 title:  "mysql的游标存储过程循环"
 date:   2019-09-10 09:13:00 +0800
 categories: code
+comments: true
 ---
 #### mysql的游标存储过程循环
 

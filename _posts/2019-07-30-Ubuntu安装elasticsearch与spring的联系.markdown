@@ -2,7 +2,8 @@
 layout: post
 title:  "Ubuntu安装elasticsearch与spring的联系"
 date:   2019-07-30 09:00:00 +0800
-categories: blog
+categories: config
+comments: true
 ---
 
 公司最近找了一个github上的spring cloud项目给我, 要求我看看能不能部署出来, 其中就包含了elasticsearch.

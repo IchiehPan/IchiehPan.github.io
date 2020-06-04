@@ -3,6 +3,7 @@ layout: post
 title:  "mongo的mapReduce函数example"
 date:   2019-04-08 09:00:00 +0800
 categories: code
+comments: true
 ---
 1. mongo的查询语句与js的函数神似;
 2. 函数案例来源 [http://blog.csdn.net/yyywyr/article/details/26287483][yyywyr-blog-url]

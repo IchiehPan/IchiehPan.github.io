@@ -3,6 +3,7 @@ layout: post
 title:  "数据库系统表说明"
 date:   2020-06-02 15:06:00 +0800
 categories: config
+comments: true
 ---
 
 ### MySQL - information_schema数据库表说明:
@@ -58,7 +59,7 @@ categories: config
 `sys.check_constraints` 每个作为 CHECK 约束的对象 (sys.objects.type = ‘C’) 均存在对应的一行。
 
 `sys.columns`  为包含列的对象（如视图或表）的每列返回一行。下面是包含列的对象类型的列表。
-                
+
                表值程序集函数 (FT)
                内联表值 SQL 函数 (IF)
                内部表 (IT)
@@ -112,7 +113,7 @@ categories: config
 `sys.sql_dependencies` 对在定义另一引用对象的 Transact-SQL 表达式或语句中引用的被引用的实体的每一依赖关系，均存在对应的一行。
 
 `sys.sql_expression_dependencies` 当前数据库中用户定义实体的每个按名称依赖项在此表中均占一行。当一个称为“被引用的实体”的实体按名称显示在另一个称为“引用实体”的实体的持久化 SQL 表达式中时，将创建这两个实体之间的依赖关系。例如，在视图定义中引用表时，作为引用实体的视图将依赖于表这个被引用的实体。如果删除该表，则该视图不可用。您可以使用此目录视图来报告以下实体的依赖关系信息：
-                                   
+
                                   绑定到架构的实体。
                                   非绑定到架构的实体。
                                   跨数据库和跨服务器的实体。报告了实体名称；但实体 ID 尚未解析。

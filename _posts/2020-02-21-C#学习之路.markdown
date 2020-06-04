@@ -2,7 +2,8 @@
 layout: post
 title:  "C#学习之路"
 date:   2020-02-21 15:47:20 +0800
-categories: .net
+categories: code
+comments: true
 ---
 
 在VisualStudio中，可以跟据选定的运行模式自动生成相应的配置文件；

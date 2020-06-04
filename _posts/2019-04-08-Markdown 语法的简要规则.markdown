@@ -3,6 +3,7 @@ layout: post
 title:  "Markdown 语法的简要规则"
 date:   2019-10-25 10:09:00 +0800
 categories: code
+comments: true
 ---
 #目录
 - **Markdown和扩展Markdown简洁的语法**
@@ -20,12 +21,12 @@ categories: code
 
 使用简单的符号标识不同的标题，将某些文字标记为**粗体**或者*斜体*，创建一个[链接](http://www.csdn.net)等，详细语法参考帮助？。
 
-本编辑器支持 **Markdown Extra** , 　扩展了很多好用的功能。具体请参考[Github][2].  
+本编辑器支持 **Markdown Extra** , 　扩展了很多好用的功能。具体请参考[Github][2].
 
 ### 标题
 标题是每篇文章都需要也是最常用的格式，在Markdown中，如果一段文字被定义为标题，只要在这段文字前加#号即可
 # 一级标题
-## 二级标题 
+## 二级标题
 ### 三级标题
 #### 四级标题
 ##### 五级标题
@@ -97,7 +98,7 @@ categories: code
 <audio src="foo.ogg">
   <track kind="captions" src="foo.en.vtt" srclang="en" label="English">
   <track kind="captions" src="foo.sv.vtt" srclang="sv" label="Svenska">
-</audio> 
+</audio>
 <!--或者是-->
 <!--使用source元素的audio元素-->
 <audio controls="controls">
@@ -214,7 +215,7 @@ ___
 ###脚注
 生成一个脚注[^footnote].
   [^footnote]: 这里是 **脚注** 的 *内容*.
-  
+
 ***
 ### 目录
 用 `[TOC]`来生成目录：

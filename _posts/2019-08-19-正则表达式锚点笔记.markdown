@@ -2,7 +2,8 @@
 layout: post
 title:  "正则表达式锚点笔记"
 date:   2019-08-19 17:11:20 +0800
-categories: blog
+categories: code
+comments: true
 ---
 
 [TOC]

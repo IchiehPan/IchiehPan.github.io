@@ -3,6 +3,7 @@ layout: post
 title:  "代码中特殊的注释技术——TODO、FIXME和XXX的用处"
 date:   2019-04-08 09:00:00 +0800
 categories: code
+comments: true
 ---
 
 #### TODO: + 说明：

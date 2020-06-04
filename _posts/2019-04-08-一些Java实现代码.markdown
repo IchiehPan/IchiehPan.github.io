@@ -3,6 +3,7 @@ layout: post
 title:  "一些Java实现代码"
 date:   2019-12-12 09:40:00 +0800
 categories: code
+comments: true
 ---
 
 ---
@@ -65,7 +66,7 @@ public class OneArrayMemory {
 
     /**
      * 获取系统内存使用情况
-     * 
+     *
      * @return 包含最大内存, 使用内存, 剩余内存的map对象
      */
     public static Map<String, String> getXtncSyqk() {

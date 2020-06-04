@@ -2,7 +2,8 @@
 layout: post
 title:  "Ubuntu安装neo4j"
 date:   2019-08-02 09:00:00 +0800
-categories: blog
+categories: config
+comments: true
 ---
 
 官网安装教程页面 https://neo4j.com/download-center/#enterprise
@@ -26,7 +27,7 @@ sudo apt-get install neo4j
 sudo neo4j start
 ```
 
-在你的浏览器中地址栏输入：http://<服务器ip地址>:7474/ 即可看到 
+在你的浏览器中地址栏输入：http://<服务器ip地址>:7474/ 即可看到
 
 第一次登录的控制台的用户名和密码均为neo4j
 

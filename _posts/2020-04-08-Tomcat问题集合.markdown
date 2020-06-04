@@ -2,7 +2,8 @@
 layout: post
 title:  "Tomcat问题集合"
 date:   2020-04-08 12:00:57 +0800
-categories: tomcat  
+categories: config
+comments: true
 ---
 
 #### Tomcat在服务器上webapp应用内乱码

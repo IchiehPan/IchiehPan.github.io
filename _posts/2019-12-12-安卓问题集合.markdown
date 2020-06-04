@@ -2,7 +2,8 @@
 layout: post
 title:  "安卓问题集合"
 date:   2020-02-17 11:54:57 +0800
-categories: android  
+categories: code
+comments: true
 ---
 
 C盘文件日益增多, 现在需要迁移一些默认处于C盘的开发文件

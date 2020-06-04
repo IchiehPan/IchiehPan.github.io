@@ -1,0 +1,307 @@
+---
+layout: post
+title:  "Markdown 语法的简要规则"
+date:   2019-10-25 10:09:00 +0800
+categories: code
+---
+#目录
+- **Markdown和扩展Markdown简洁的语法**
+- **代码块高亮**
+- **图片链接和图片上传**
+- ***LaTex*数学公式**
+- **UML序列图和流程图**
+- **MD折叠**
+
+-------------------
+
+## Markdown及扩展
+
+> Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。    —— <a href="https://zh.wikipedia.org/wiki/Markdown" target="_blank"> [ 维基百科 ]
+
+使用简单的符号标识不同的标题，将某些文字标记为**粗体**或者*斜体*，创建一个[链接](http://www.csdn.net)等，详细语法参考帮助？。
+
+本编辑器支持 **Markdown Extra** , 　扩展了很多好用的功能。具体请参考[Github][2].  
+
+### 标题
+标题是每篇文章都需要也是最常用的格式，在Markdown中，如果一段文字被定义为标题，只要在这段文字前加#号即可
+# 一级标题
+## 二级标题 
+### 三级标题
+#### 四级标题
+##### 五级标题
+###### 六级标题
+以此类推，总共六级标题，建议在井号后加一个空格，这是最标准的Markdown语法。
+等号及减号也可以进行标题的书写，不过只能书写二级标题，并且需要写在文字的下面，减号及等号的数量不会影响标题的基数，如下：
+```
+二级标题
+=========
+
+二级标题
+---------
+```
+二级标题
+=========
+
+二级标题
+---------
+***
+#### 列表
+熟悉HTML的同学肯定知道有序列表与无序列表的区别，在Markdown下，列表的显示只需要在文字前加上-或*即可表为无序列表，有序列表则直接在文字前加1.2.3.符号要和文字之间加上一个字符的空格。
+#### 无序列表
+
+- 1
+- 2
+- 3
+#### 有序列表
+1. 1
+2. 2
+3. 3
+
+***
+### 引用
+如果你需要引用一小段别处的句子，那么就要用引用的格式。
+> 例如这样
+
+只需要在文本前加入>这种尖括号（大于号）即可。（要注意符号和文本间的空格）
+***
+### 图片与链接
+插入图片的地址需要图床，这里推荐CloudApp的服务，生成URL地址即可。
+#### 插入链接
+`[Baidu](http://baidu.com)`
+
+[Baidu](http://baidu.com)
+#### 插入图片
+
+`![Mou icon](http://mouapp.com/Mou_128.png)`
+
+![Mou icon](http://mouapp.com/Mou_128.png)
+
+#### 插入视频
+
+```html
+<video src="http://img.blog.fandong.me/2017-08-26-Markdown-Advance-Video.mp4" width="1280" height="720" controls="controls">
+</video>
+<!--或者-->
+<video width="1280" height="720" controls>
+    <source src="movie.mp4" type="video/mp4">
+    <source src="movie.ogg" type="video/ogg">
+    您的浏览器不支持 video 标签。
+</video>
+```
+<video src="http://img.blog.fandong.me/2017-08-26-Markdown-Advance-Video.mp4" controls="controls"></video>
+
+#### 插入音频
+
+```html
+<!-- Audio playback with captions -->
+<audio src="foo.ogg">
+  <track kind="captions" src="foo.en.vtt" srclang="en" label="English">
+  <track kind="captions" src="foo.sv.vtt" srclang="sv" label="Svenska">
+</audio> 
+<!--或者是-->
+<!--使用source元素的audio元素-->
+<audio controls="controls">
+  Your browser does not support the <code>audio</code> element.
+  <source src="foo.wav" type="audio/wav">
+</audio>
+```
+
+<audio id="audio" controls="" preload="none">
+    <source id="mp3" src="http://qiniu.cloud.fandong.me/Music_iP%E8%B5%B5%E9%9C%B2%20-%20%E7%A6%BB%E6%AD%8C%20%28Live%29.mp3">
+</audio>
+
+#### 插入iframe
+
+```html
+<iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px" height="20px"
+  src="https://ghbtns.com/github-btn.html?user=IchiehPan&repo=IchiehPan.github.io&type=star&count=true" >
+</iframe>
+```
+
+<iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px" height="20px"
+  src="https://ghbtns.com/github-btn.html?user=IchiehPan&repo=IchiehPan.github.io&type=star&count=true" >
+</iframe>
+
+***
+### 粗体与斜体
+Markdown的粗体和斜体也非常简单，用两个`**`包含一段文字就是粗体的语法，用一个`*`包含一段文本就是斜体的语法。
+例如：**这里是粗体** *这里是斜体*
+***
+### 表格
+
+**Markdown　Extra**　表格语法：
+
+项目     | 价格
+-------- | ---
+Computer | $1600
+Phone    | $12
+Pipe     | $1
+
+可以使用冒号来定义对齐方式：
+
+| 项目      |    价格 | 数量  |
+| :-------- | --------:| :--: |
+| Computer  | 1600 元 |  5   |
+| Phone     |   12 元 |  12  |
+| Pipe      |    1 元 | 234  |
+
+表格是我觉得Markdown比较累人的地方，例子如下：
+```
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+```
+这种语法生成的表格如下：
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+***
+###定义列表
+
+**Markdown　Extra**　定义列表语法：
+项目１
+项目２
+:   定义 A
+:   定义 B
+
+项目３
+:   定义 C
+
+:   定义 D
+
+	> 定义D内容
+
+***
+### 代码块
+代码块语法遵循标准markdown代码，例如：
+（在需要高亮的代码块的前一行及后一行使用三个反引号```` ```，同时第一行反引号后面表面代码块所使用的语言）
+```python
+@requires_authorization
+def somefunc(param1='', param2=0):
+    '''A docstring'''
+    if param1 > param2: # interesting
+        print 'Greater'
+    return (param2 - param1 + 1) or None
+class SomeClass:
+    pass
+>>> message = '''interpreter
+... prompt'''
+```
+
+注意: github page的代码块最好不要使用shell script, 否则不同的代码块会连接到一起破坏布局
+
+***
+### 代码框
+如果你是个程序员，需要在文章里优雅的引用代码框。在Markdown下实现也非常简单，只需要用两个
+```` ```（反单引号）把中间的代码包裹起来，如：
+`code`。
+使用tab键即可缩进。
+***
+### 分割线与删除线
+可以在一行中用三个以上的星号、减号、底线来建立一个分隔线，同时需要在分隔线的上面空一行。如下：
+***
+
+---
+
+___
+删除线的使用，在需要删除的文字前后各使用两个符合“~”，如下
+
+~~Mistaken text.~~
+###脚注
+生成一个脚注[^footnote].
+  [^footnote]: 这里是 **脚注** 的 *内容*.
+  
+***
+### 目录
+用 `[TOC]`来生成目录：
+
+@[toc]
+***
+### 数学公式
+使用MathJax渲染*LaTex* 数学公式，详见[math.stackexchange.com][1].
+
+ - 行内公式，数学公式为：$\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$。
+ - 块级公式：
+
+$$	x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
+
+更多LaTex语法请参考 [这儿][3].
+***
+### UML 图:
+
+可以渲染序列图：
+
+```mermaid
+sequenceDiagram
+张三->>李四: 嘿，小四儿, 写博客了没?
+Note right of 李四: 李四愣了一下，说：
+李四-->>张三: 忙得吐血，哪有时间写。
+```
+
+或者流程图：
+
+```mermaid
+flowchat
+st=>start: 开始
+e=>end: 结束
+op=>operation: 我的操作
+cond=>condition: 确认？
+
+st->op->cond
+cond(yes)->e
+cond(no)->op
+```
+
+- 关于 **序列图** 语法，参考 [这儿][4],
+- 关于 **流程图** 语法，参考 [这儿][5].
+***
+
+### MD折叠
+
+```html
+<details>
+<summary>展开查看</summary>
+<pre><code>
+System.out.println("Hello to see U!");
+</code></pre>
+</details>
+
+<!--or-->
+
+<details>
+<summary>Title</summary>
+
+content!!!
+</details>
+```
+
+<details>
+<summary>CLICK ME</summary>
+
+标签与正文间一定要空一行！！
+</details>
+
+
+`summary`：折叠语法展示的摘要
+
+`details`：折叠语法标签
+
+`pre`：以原有格式显示元素内的文字是已经格式化的文本。
+
+`blockcode`：表示程序的代码块。 效果存疑?
+
+`code`：指定代码范例。
+
+***
+---------
+
+[1]: http://math.stackexchange.com/
+[2]: https://github.com/jmcmanus/pagedown-extra "Pagedown Extra"
+[3]: http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference
+[4]: http://bramp.github.io/js-sequence-diagrams/
+[5]: http://adrai.github.io/flowchart.js/
+[6]: https://github.com/benweet/stackedit

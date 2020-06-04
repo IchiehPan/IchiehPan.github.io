@@ -1,0 +1,345 @@
+---
+layout: post
+title:  "一些Java实现代码"
+date:   2019-12-12 09:40:00 +0800
+categories: code
+---
+
+---
+使用java保存一维与二维数组耗费内存
+```java
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+public class OneArrayMemory {
+
+    public static void main(String[] args) {
+        long startTime1 = System.currentTimeMillis(); // 获取开始时间
+
+        int num1 = 1024 * 1024 * 2;
+        int[] arr1 = new int[num1];
+
+        Arrays.fill(arr1, 1);
+
+        // for(int x : arr1){
+        // System.out.println(x);
+        // }
+
+        // 获得占用内存总数，并将单位转换成MB
+        // long memory1 = Runtime.getRuntime().totalMemory() / 1024 / 1024;
+        Map<String, String> map = getXtncSyqk();
+
+        System.out.println("用一维数组存储占用内存总量为：" + map.get("UsedMemory"));
+
+        long endTime1 = System.currentTimeMillis(); // 获取结束时间
+
+        System.out.println("程序运行时间： " + (endTime1 - startTime1) + "ms");
+
+        long startTime2 = System.currentTimeMillis(); // 获取开始时间
+
+        int num2 = 1024 * 1024;
+
+        int[][] arr2 = new int[num2][2];
+
+        for (int[] i : arr2) {
+            Arrays.fill(i, 1);
+        }
+
+        // for (int[] i : arr2) {
+        // for (int j : i) {
+        // System.out.print(j);
+        // }
+        // }
+
+        // 获得占用内存总数，并将单位转换成MB
+        // long memory2 = Runtime.getRuntime().totalMemory() / 1024 / 1024;
+        Map<String, String> map2 = getXtncSyqk();
+
+        System.out.println("用二维数组存储占用内存总量为：" + map2.get("UsedMemory"));
+
+        long endTime2 = System.currentTimeMillis(); // 获取结束时间
+
+        System.out.println("程序运行时间： " + (endTime2 - startTime2) + "ms");
+    }
+
+    /**
+     * 获取系统内存使用情况
+     * 
+     * @return 包含最大内存, 使用内存, 剩余内存的map对象
+     */
+    public static Map<String, String> getXtncSyqk() {
+        Map<String, String> map = new HashMap<String, String>();
+        long maxMem = Runtime.getRuntime().maxMemory() / 1024 / 1024;
+        long freeMem = Runtime.getRuntime().freeMemory() / 1024 / 1024;
+        long totalMem = Runtime.getRuntime().totalMemory() / 1024 / 1024;
+        long usedMem = totalMem - freeMem;
+        map.put("MaxMemory", maxMem + "MB");
+        map.put("FreeMemory", freeMem + "MB");
+        map.put("TotalMem", totalMem + "MB");
+        map.put("UsedMemory", usedMem + "MB");
+        return map;
+    }
+}
+```
+---
+java反射机制重载toString()方法
+```java
+import java.lang.reflect.*;
+
+public class StringUtils {
+    public String toString(Object object) {
+        Class<? extends Object> clazz = object.getClass();
+        StringBuilder builder = new StringBuilder();
+        Package packageName = clazz.getPackage();
+        builder.append("包名：" + packageName.getName() + "\t");
+        String className = clazz.getSimpleName();
+        builder.append("类名：" + className + "\n");
+        builder.append("公共构造方法：\n");
+
+        Constructor<?>[] constructors = clazz.getDeclaredConstructors();
+        for (Constructor<?> constructor : constructors) {
+            String modifier = Modifier.toString(constructor.getModifiers());
+            if (modifier.contains("public")) {
+                builder.append(constructor.toGenericString() + "\n");
+            }
+        }
+        builder.append("公共域：\n");
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            String modifier = Modifier.toString(field.getModifiers());
+            if (modifier.contains("public")) {
+                builder.append(field.toGenericString() + "\n");
+            }
+        }
+        builder.append("公共方法：\n");
+        Method[] methods = clazz.getDeclaredMethods();
+        for (Method method : methods) {
+            String modifier = Modifier.toString(method.getModifiers());
+            if (modifier.contains("public")) {
+                builder.append(method.toGenericString() + "\n");
+            }
+        }
+        return builder.toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new StringUtils().toString(new java.util.Date()));
+    }
+}
+```
+---
+关于系统和网络的属性输出
+```java
+import java.util.Properties;
+
+public class SystemInfo {
+    public static void main(String[] args) {
+        Properties properties = System.getProperties(); // 获得当前的系统属性
+        properties.list(System.out); // 将属性列表输出
+
+        System.out.print("CPU个数："); // 获取当前运行时的实例
+        System.out.println(Runtime.getRuntime().availableProcessors()); // availableProcessors()获取当前电脑CPU数量
+        System.out.print("虚拟机内存总量：");
+        System.out.println(Runtime.getRuntime().totalMemory()); // totalMemory()获取java虚拟机中的内存总量
+        System.out.print("虚拟机空闲内存量：");
+        System.out.println(Runtime.getRuntime().freeMemory()); // freeMemory()获取java虚拟机中的空闲内存量
+        System.out.print("虚拟机使用最大内存量");
+        System.out.println(Runtime.getRuntime().maxMemory()); // maxMemory()获取java虚拟机试图使用的最大内存量
+    }
+}
+```
+
+```java
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+public class Address {
+    public static void main(String[] args) {
+        InetAddress ip;
+
+        try {
+            ip = InetAddress.getLocalHost();
+            // ip = InetAddress.getLoopbackAddress();
+            String localname = ip.getHostName();
+            String localip = ip.getHostAddress();
+            System.out.println("主机名：" + ip.getCanonicalHostName());
+            System.out.println("主机别名：" + localname);
+            System.out.println("本地IP地址：" + localip);
+
+            System.out.println("是否loopback地址：" + ip.isLoopbackAddress()); // 127
+            System.out.println("是否本地连接地址：" + ip.isLinkLocalAddress()); // 192
+            System.out.println("是否地区本地地址：" + ip.isSiteLocalAddress());
+
+            System.out.println("是否是通配符地址：" + ip.isAnyLocalAddress());
+            System.out.println("是否是广播地址：" + ip.isMulticastAddress());
+            System.out.println("是否是子网广播地址：" + ip.isMCLinkLocal());
+            System.out.println("是否是本地接口广播地址：" + ip.isMCNodeLocal());
+            System.out.println("是否是全球范围的广播地址：" + ip.isMCGlobal());
+            System.out.println("是否是组织范围的广播地址：" + ip.isMCOrgLocal());
+            System.out.println("是否是站点范围的广播地址：" + ip.isMCSiteLocal());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+---
+
+商城等缩略图
+```java
+//...
+//		// 用原图的输入流构造一个Image图片对象
+//		FileInputStream fin = new FileInputStream("d:/tmp/java.jpg");
+//		Image src = ImageIO.read(fin);
+//		// 定义生成新图片的高度和宽度
+//		int h = 100;
+//		int w = 100;
+//		// 使用以上定义的高度和宽度生成位图格式的缓存图片对象
+//		BufferedImage tag = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+//		// 绘制图片对象的图形为与目标等比例的图片
+//		tag.getGraphics().drawImage(src, 0, 0, w, h, null);
+//		// 采用JPEG的编码格式向目标输入流输入图片
+//		FileOutputStream fout = new FileOutputStream("d:/new_java.jpg");
+//		ImageIO.write(tag, "JPEG", fout);
+//...
+```
+
+详细代码
+> 图片验证码是为了防止恶意注册或登录而设定的。
+> 核心在于如何使用Java的2D图形编程API来绘制随机产生的验证码和干扰点，然后再把生成的图片对象写到客户端。
+
+- 创建一个图形对象。一般还要初始化背景颜色和边框，示例代码如下：
+```java
+//		int width = 60, height = 20; // 定义宽度和高度
+//		// 在内存中创建图像
+//		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+//		Graphics g = image.getGraphics(); // 获取图形上下文
+//		g.setColor(new Color(0xDCDCDC)); // 设定背景色
+//		g.fillRect(0, 0, width, height); // 绘制背景
+//		g.setColor(Color.BLACK);
+//		g.drawRect(0, 0, width - 1, height - 1); // 画边框
+```
+- 产生随机数字。如果位数不足还需补0，以下是生成4位长度的随机数字示例代码：
+```java
+//		// 取随机产生的认证码（4位数字）
+//		Random r = new Random(); // 定义随机数产生器对象
+//		int rst = 0;
+//		while ((rst = r.nextInt(10000)) < 0) { // 小于0则重新获取
+//		}
+//		String rand = rst + "";
+//		switch (rand.length()) { // 小于4位整数的前面补0
+//		case 1:
+//			rand = "000" + rand;
+//			break;
+//		case 2:
+//			rand = "00" + rand;
+//			break;
+//		case 3:
+//			rand = "0" + rand;
+//			break;
+//		default:
+//			rand = rand.substring(0, 4);
+//			break;
+//		}
+```
+- 将生成的随机数字和干扰点绘制到图形上面。示例代码如下：
+```java
+//		// 将认证码显示到图像中
+//		g.setColor(Color.BLACK);
+//		g.setFont(new Font("Atlantic Inline", Font.PLAIN, 18)); // 设置字体
+//		g.drawString(rand.charAt(0) + "", 8, 17); // 绘制第1个数字
+//		g.drawString(rand.charAt(1) + "", 20, 15); // 绘制第2个数字
+//		g.drawString(rand.charAt(2) + "", 35, 18); // 绘制第3个数字
+//		g.drawString(rand.charAt(3) + "", 45, 15); // 绘制第4个数字
+//		// 随机产生50个干扰点，使图像中的认证码不易被其他程序探测到
+//		Random random = new Random();
+//		for (int i = 0; i < 50; i++) {
+//			int x = random.nextInt(width);
+//			int y = random.nextInt(height);
+//			g.drawOval(x, y, 0, 0); // 绘制干扰点
+//		}
+//		g.dispose(); // 使图像生效
+```
+**说明**：验证码可以不仅仅是数字，还可以包含字母甚至中文。原理类似，也是通过Graphics的drawString()方法写在图片上面的。
+
+---
+Java反射机制实现方法
+
+```java
+package main;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
+import bean.Bean;
+
+public class Main {
+	public static void main(String[] args) throws Exception {
+		Bean bean = new Bean();
+
+		Method[] methods = bean.getClass().getDeclaredMethods();
+		for (Method method : methods) {
+			System.out.print(method.getName() + "() ");
+		}
+		System.out.println();
+		Method method = bean.getClass().getDeclaredMethod("setCover3", String.class);
+		method.invoke(bean, "haha");
+
+		Class<?> clazz = Class.forName("bean.Bean");
+		Constructor<?> constructor = clazz.getConstructor();
+		System.out.println(constructor.getName());
+
+		System.out.println(bean.getCover3());
+	}
+}
+
+```
+
+---
+
+正确关闭线程
+
+```java
+public class ThreadA extends Thread {
+	private boolean isInterrupted = false;
+	int count = 0;
+
+	public void interrupt() {
+		isInterrupted = true;
+		super.interrupt();
+	}
+
+	public void run() {
+		System.out.println(getName() + "将要运行...");
+		while (!isInterrupted) {
+			System.out.println(getName() + "运行中" + count++);
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				System.out.println(getName() + "从阻塞中退出...");
+				System.out.println("this.isInterrupted()=" + this.isInterrupted());
+
+			}
+		}
+		System.out.println(getName() + "已经终止!");
+	}
+}
+```
+
+```java
+public class ThreadDemo {
+
+	public static void main(String argv[]) throws InterruptedException {
+		ThreadA ta = new ThreadA();
+		ta.setName("ThreadA");
+		ta.start();
+		Thread.sleep(5000);
+		System.out.println(ta.getName() + "正在被中断...");
+		ta.interrupt();
+		System.out.println("ta.isInterrupted()=" + ta.isInterrupted());
+	}
+
+}
+```

@@ -1,0 +1,46 @@
+---
+layout: post
+title:  "Windows云主机远程问题汇总"
+date:   2020-02-17 15:03:00 +0800
+categories: config
+---
+####Windows云主机远程连接不上？
+
+开始→运行(win+R)→输入`gpedit.msc`, 打开组策略（Group Policy）
+
+![](https://ichiehpan.github.io/images/微信截图_20190704150456.png)
+
+在左侧菜单栏
+
+`计算机配置`→`管理模板`→`Windwos组件`→`远程桌面服务`→`远程桌面会话主机`→`安全`
+
+![](https://ichiehpan.github.io/images/微信截图_20190704150137.png)
+![](https://ichiehpan.github.io/images/微信截图_20190704150338.png)
+
+远程（RDP）连接要求使用指定的安全层  
+
+设定为`已启用`，安全层设置为：`RDP`
+
+![](https://ichiehpan.github.io/images/微信截图_20190704150528.png)
+
+```bat
+	netsh advfirewall set currentprofile state on  #开启防火墙
+	netsh advfirewall set currentprofile state off #关闭防火墙
+	netsh advfirewall reset                        #重置防火墙
+```
+
+---
+
+####今天远程连接时， 因为强行终止了explore文件资源管理器的进程，导致后面无法对该台服务器进行粘贴操作
+
+解决方案：
+任务管理器找到“rdpclip.exe”进程，将其杀死。然后重新启动。
+
+---
+
+####拷贝3G以上文件时， 不能使用粘贴板功能了，报“未指定的错误”
+
+解决方案：
+在远程连接使用客户端，选中“本地资源”选项卡，进入详细信息，勾选复制文件所在的驱动盘。
+这样在远程服务器上就存在网络驱动盘
+

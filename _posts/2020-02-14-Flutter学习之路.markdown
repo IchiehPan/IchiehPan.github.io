@@ -1,0 +1,41 @@
+---
+layout: post
+title:  "Flutter学习之路"
+date:   2020-02-14 15:47:20 +0800
+categories: Flutter
+---
+
+[TOC]
+
+###疑难杂症
+
+####[Using Flutter in China](https://flutter.dev/community/china)
+
+####[flutter 卡在Running Gradle task 'assembleDebug'...](https://www.cnblogs.com/wupeng88/p/11455874.html)
+
+####关于Flutter的主题Theme继承
+[官方中文文档](https://flutterchina.club/cookbook/design/themes/)
+上遇到的问题和[stack overflow](https://stackoverflow.com/questions/56092902/theme-overwriting-in-flutter-does-not-work-used-official-example)上的一样
+
+```js
+floatingActionButton: Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: Theme.of(context).colorScheme.copyWith(secondary: Colors.yellow),
+          ),
+          child: new FloatingActionButton(
+            onPressed: () {
+              print(
+                  'isCyan = ${Theme.of(context).accentColor == Colors.cyan[600]}');
+              print(
+                  'isYellow = ${Theme.of(context).accentColor == Colors.yellow}');
+            },
+            child: new Icon(
+              Icons.add,
+            ),
+          )),
+```
+
+
+
+
+

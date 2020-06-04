@@ -1,0 +1,29 @@
+---
+layout: post
+title:  "安卓问题集合"
+date:   2020-02-17 11:54:57 +0800
+categories: android  
+---
+
+C盘文件日益增多, 现在需要迁移一些默认处于C盘的开发文件
+#### 更改Android Studio的AVD路径
+系统变量里增加一个变量
+`ANDROID_SDK_HOME=[PATH]`
+例如
+`ANDROID_SDK_HOME=D:\Android`
+
+---
+
+Android Studio的代理设为空之后，gradle编译依然走代理的问题
+#### gradle代理问题
+在.gradle目录下有一个gradle.properties文件，文件中按照如下格式添加代理配置，注释掉
+```
+systemProp.http.proxyHost=proxy.com
+systemProp.http.proxyPort=8080
+systemProp.https.nonProxyHosts=10.*|localhost
+
+
+systemProp.https.proxyHost=dev-proxy.com
+systemProp.https.proxyPort=8080
+systemProp.https.nonProxyHosts=10.*|localhost
+```

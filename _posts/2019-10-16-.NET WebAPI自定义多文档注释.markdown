@@ -1,0 +1,125 @@
+---
+layout: post
+title:  ".NET WebAPI自定义多文档注释"
+date:   2019-10-16 11:28:36 +0800
+categories: blog
+---
+
+首先右键打开api所在解决方案的属性
+
+![](https://ichiehpan.github.io/images/微信截图_20191016113110.png)
+
+勾选输出下的`XML 文档文件`并保存, 这样在项目对应的目录下就生成了xml文件(eg. "bin")
+
+第二步在项目目录里
+`\WebApplication2\Areas\HelpPage\App_Start\HelpPageConfig.cs`
+这个文件取消注释这一行, 并把路径修改为刚才生成的xml文件即可
+
+```C#
+ //// Uncomment the following to use the documentation from XML documentation file.
+ //config.SetDocumentationProvider(new XmlDocumentationProvider(HttpContext.Current.Server.MapPath("~/App_Data/XmlDocument.xml")));
+```
+
+到这一步已经打开了文档注释, 但这样是不能读到引用的其他解决方案的文档注释的.
+
+所以接下来需要自定义对应的XmlDocumentationProvider类, 支持多个xml文件
+
+在api解决方案里新建一个C#文件
+
+```C#
+using System;
+using System.Linq;
+using System.Reflection;
+using System.Web.Http.Controllers;
+using System.Web.Http.Description;
+using WebApplication2.Areas.HelpPage.ModelDescriptions;
+
+namespace WebApplication2.Areas.HelpPage
+{
+    /// <summary>A custom 
+    /// <see cref="IDocumentationProvider"/> 
+    /// that reads the API documentation from a collection of XML documentation files.
+    /// </summary>
+    public class MultiXmlDocumentationProvider : IDocumentationProvider, IModelDocumentationProvider
+    {
+        /*********
+        ** Properties
+        *********/
+        /// <summary>The internal documentation providers for specific files.</summary>
+        private readonly XmlDocumentationProvider[] Providers;
+
+
+        /*********
+        ** Public methods
+        *********/
+        /// <summary>Construct an instance.</summary>
+        /// <param name="paths">The physical paths to the XML documents.</param>
+        public MultiXmlDocumentationProvider(params string[] paths)
+        {
+            this.Providers = paths.Where(p => System.IO.File.Exists(p) && p.EndsWith(".xml")).Select(p => new XmlDocumentationProvider(p)).ToArray();
+        }
+
+        /// <summary>Gets the documentation for a subject.</summary>
+        /// <param name="subject">The subject to document.</param>
+        public string GetDocumentation(MemberInfo subject)
+        {
+            return this.GetFirstMatch(p => p.GetDocumentation(subject));
+        }
+
+        /// <summary>Gets the documentation for a subject.</summary>
+        /// <param name="subject">The subject to document.</param>
+        public string GetDocumentation(Type subject)
+        {
+            return this.GetFirstMatch(p => p.GetDocumentation(subject));
+        }
+
+        /// <summary>Gets the documentation for a subject.</summary>
+        /// <param name="subject">The subject to document.</param>
+        public string GetDocumentation(HttpControllerDescriptor subject)
+        {
+            return this.GetFirstMatch(p => p.GetDocumentation(subject));
+        }
+
+        /// <summary>Gets the documentation for a subject.</summary>
+        /// <param name="subject">The subject to document.</param>
+        public string GetDocumentation(HttpActionDescriptor subject)
+        {
+            return this.GetFirstMatch(p => p.GetDocumentation(subject));
+        }
+
+        /// <summary>Gets the documentation for a subject.</summary>
+        /// <param name="subject">The subject to document.</param>
+        public string GetDocumentation(HttpParameterDescriptor subject)
+        {
+            return this.GetFirstMatch(p => p.GetDocumentation(subject));
+        }
+
+        /// <summary>Gets the documentation for a subject.</summary>
+        /// <param name="subject">The subject to document.</param>
+        public string GetResponseDocumentation(HttpActionDescriptor subject)
+        {
+            return this.GetFirstMatch(p => p.GetDocumentation(subject));
+        }
+
+
+        /*********
+        ** Private methods
+        *********/
+        /// <summary>Get the first valid result from the collection of XML documentation providers.</summary>
+        /// <param name="expr">The method to invoke.</param>
+        private string GetFirstMatch(Func<XmlDocumentationProvider, string> expr)
+        {
+            return this.Providers.Select(expr).FirstOrDefault(p => !String.IsNullOrWhiteSpace(p));
+        }
+    }
+
+}
+```
+
+最后用自定义的`MultiXmlDocumentationProvider`替换上面的`XmlDocumentationProvider`就可以了
+
+
+
+
+
+

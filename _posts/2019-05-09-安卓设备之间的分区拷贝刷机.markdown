@@ -1,0 +1,49 @@
+---
+layout: post
+title:  "安卓设备之间的分区拷贝刷机"
+date:   2019-05-09 09:00:00 +0800
+categories: blog
+---
+
+原因: 
+
+这几天修改了公司的平板设备, 导致平板不能正常开机.
+
+平板是山寨版, 不能找到刷机rom包, 只能自己制作
+
+在相同的正常平板上备份system信息刷入损坏的平板即可
+
+有两个方法备份
+
+(1). 使用recovery备份数据
+
+(2). adb的shell模式下备份数据
+
+这里讲的是第二种, 山寨平板也没有适配的rec
+
+**修改了system分区的build.prop文件后, 权限不正确导致的一直重启**
+
+步奏: 
+1. 开启adb调试模式, 检查adb连接, 需要在开机状态下确认窗口同意设备进行调试
+2. 获取管理员权限
+3. 查看系统分区情况, 找出需要还原的分区
+4. linux命令备份分区数据
+5. 将需要恢复的设备进入fastboot,查看连接情况
+6. fastboot刷入备份的数据
+
+```shell
+adb devices
+
+adb shell
+
+su
+
+cat proc/mounts
+
+dd if=... of=.../recovery.img
+(dd if=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/recovery of=/sdcard/recovery.img)
+
+fastboot devices
+
+fastboot flash [system](partition) system.img(path)
+```

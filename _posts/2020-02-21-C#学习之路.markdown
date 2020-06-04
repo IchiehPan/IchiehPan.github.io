@@ -1,0 +1,65 @@
+---
+layout: post
+title:  "C#学习之路"
+date:   2020-02-21 15:47:20 +0800
+categories: .net
+---
+
+在VisualStudio中，可以跟据选定的运行模式自动生成相应的配置文件；
+
+对web类型的项目，系统已自动有了Web.config、Web.Debug.config、Web.release.config三个配置，且可自动使用转换工具自动来实现转换。
+
+对于像应用程序之类的项目，没有能自动实现这些，这对于项目的发布有的时候是个问题。对于这种情况，可以如下配置项目文件以实现相同功能：
+
+1. 卸载要编辑的项目，右键点点击“编辑”项目文件对应的xxproj文件。比如xx.csproj
+2. 在打开的文件里，按着已有的格式添加如下内容
+
+``` xml
+<!-- 自动生成App.config -->
+  <PropertyGroup>
+    <ProjectConfigFileName>App.config</ProjectConfigFileName>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="App.Debug.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Release.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <Target Name="BeforeBuild">
+    <TransformXml Source="App.config" Transform="App.$(Configuration).config" Destination="App.config" />
+  </Target>
+  <!-- <Target Name="AfterBuild">
+    <TransformXml Source="@(AppConfigWithTargetPath)" Transform="$(ProjectConfigTransformFileName)" Destination="@(AppConfigWithTargetPath->'$(OutDir)%(TargetPath)')" />
+  </Target> -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <!-- 如果已经引入可以注释 -->
+  <!-- <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" /> -->
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+   <!-- 自动生成App.config -->
+```
+
+另外在目录下新建
+- App.config
+- App.Debug.config
+- App.Release.config
+
+与Web.config一致，使用`xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform"`里的属性进行替换或者增删
+
+`<Target>`内作为一个任务内容
+
+`BeforeBuild`和`AfterBuild`分别为编译前和编译后(build)执行的任务，
+
+<b>注意: Visual Studio默认的调试是不会触发build的。</b>
+
+
+
+
+
+
+

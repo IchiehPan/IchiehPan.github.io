@@ -1,0 +1,26 @@
+---
+layout: post
+title:  "正则表达式锚点笔记"
+date:   2019-08-19 17:11:20 +0800
+categories: blog
+---
+
+[TOC]
+
+####[引言](http://blog.didispace.com/regular-expression-all/)
+
+####[第一章 正则表达式字符匹配攻略](http://blog.didispace.com/regular-expression-1/)
+
+####[第二章 正则表达式位置匹配攻略](http://blog.didispace.com/regular-expression-2/)
+
+####[第三章 正则表达式括号的作用](http://blog.didispace.com/regular-expression-3/)
+
+####[第四章 正则表达式回溯法原理](http://blog.didispace.com/regular-expression-4/)
+
+####[第五章 正则表达式的拆分](http://blog.didispace.com/regular-expression-5/)
+
+####[第六章 正则表达式的构建](http://blog.didispace.com/regular-expression-6/)
+
+####[第七章 正则表达式编程](http://blog.didispace.com/regular-expression-7/)
+
+以上是老姚的博客日志传送门

@@ -1,0 +1,35 @@
+---
+layout: post
+title:  "Tomcat问题集合"
+date:   2020-04-08 12:00:57 +0800
+categories: tomcat  
+---
+
+#### Tomcat在服务器上webapp应用内乱码
+
+因为项目一般是用UTF-8开发的，所以需要在catalina.bat这个文件上设置`JAVA_OPTS`变量默认值加上
+`-Dfile.encoding=UTF-8`, 即
+
+```
+if not "%JSSE_OPTS%" == "" goto gotJsseOpts
+set "JSSE_OPTS=-Djdk.tls.ephemeralDHKeySize=2048 -Dfile.encoding=UTF-8"
+:gotJsseOpts
+set "JAVA_OPTS=%JAVA_OPTS% %JSSE_OPTS%"
+```
+
+
+#### Tomcat在服务器上console控制台乱码
+windows的console控制台一般编码规则是`GBK`,
+这时候有两种做法
+1. 修改windows的控制台编码（自行百度）为`UTF-8`
+2. 修改tomcat输出到控制台的编码规则为`GBK`
+
+第二种的具体做法是修改tomcat目录下的`/conf/logging.properties`文件
+修改语句为
+```properties
+java.util.logging.ConsoleHandler.level = FINE
+java.util.logging.ConsoleHandler.formatter = org.apache.juli.OneLineFormatter
+java.util.logging.ConsoleHandler.encoding = GBK
+```
+
+---

@@ -1,0 +1,142 @@
+---
+layout: post
+title:  "数据库系统表说明"
+date:   2020-06-02 15:06:00 +0800
+categories: config
+---
+
+### MySQL - information_schema数据库表说明:
+
+  information_schema数据库是MySQL自带的，它提供了访问数据库元数据的方式。什么是元数据呢？元数据是关于数据的数据，如数据库名或表名，列的数据类型，或访问权限等。有些时候用于表述该信息的其他术语包括“数据词典”和“系统目录”。
+
+  在MySQL中，把 information_schema 看作是一个数据库，确切说是信息数据库。其中保存着关于MySQL服务器所维护的所有其他数据库的信息。如数据库名，数据库的表，表栏的数据类型与访问权 限等。在INFORMATION_SCHEMA中，有数个只读表。它们实际上是视图，而不是基本表，因此，你将无法看到与之相关的任何文件。
+
+```
+`SCHEMATA`表：提供了当前mysql实例中所有数据库的信息。是show databases的结果取之此表。
+
+`TABLES`表：提供了关于数据库中的表的信息（包括视图）。详细表述了某个表属于哪个schema，表类型，表引擎，创建时间等信息。是show tables from schemaname的结果取之此表。
+
+`COLUMNS`表：提供了表中的列信息。详细表述了某张表的所有列以及每个列的信息。是show columns from schemaname.tablename的结果取之此表。
+
+`STATISTICS`表：提供了关于表索引的信息。是show index from schemaname.tablename的结果取之此表。
+
+`USER_PRIVILEGES`（用户权限）表：给出了关于全程权限的信息。该信息源自mysql.user授权表。是非标准表。
+
+`SCHEMA_PRIVILEGES`（方案权限）表：给出了关于方案（数据库）权限的信息。该信息来自mysql.db授权表。是非标准表。
+
+`TABLE_PRIVILEGES`（表权限）表：给出了关于表权限的信息。该信息源自mysql.tables_priv授权表。是非标准表。
+
+`COLUMN_PRIVILEGES`（列权限）表：给出了关于列权限的信息。该信息源自mysql.columns_priv授权表。是非标准表。
+
+`CHARACTER_SETS`（字符集）表：提供了mysql实例可用字符集的信息。是SHOW CHARACTER SET结果集取之此表。
+
+`COLLATIONS`表：提供了关于各字符集的对照信息。
+
+`COLLATION_CHARACTER_SET_APPLICABILITY`表：指明了可用于校对的字符集。这些列等效于SHOW COLLATION的前两个显示字段。
+
+`TABLE_CONSTRAINTS`表：描述了存在约束的表。以及表的约束类型。
+
+`KEY_COLUMN_USAGE`表：描述了具有约束的键列。
+
+`ROUTINES`表：提供了关于存储子程序（存储程序和函数）的信息。此时，ROUTINES表不包含自定义函数（UDF）。名为“mysql.proc name”的列指明了对应于INFORMATION_SCHEMA.ROUTINES表的mysql.proc表列。
+
+`VIEWS`表：给出了关于数据库中的视图的信息。需要有show views权限，否则无法查看视图信息。
+
+`TRIGGERS`表：提供了关于触发程序的信息。必须有super权限才能查看该表
+```
+
+---
+
+### SQLServer - sys系统表说明
+
+```
+
+`sys.allocation_units` 数据库中的每个分配单元都在表中占一行。
+
+`sys.assembly_modules` 为公共语言运行时 (CLR) 程序集所定义的每个函数、过程或触发器返回一行。此目录视图将 CLR 存储过程、CLR 触发器或 CLR 函数映射到其基础实现。类型为 TA、AF、PC、FS 和 FT 的对象具有相关联的程序集模块。若要查找对象和程序集之间的关联，可以将此目录视图联接到其他目录视图。例如，在创建 CLR 存储过程时，该存储过程由 sys.objects 中的一行、sys.procedures（继承自 sys.objects）中的一行以及 sys.assembly_modules 中的一行表示。该存储过程本身由 sys.objects 和 sys.procedures 中的元数据表示。在 sys.assembly_modules 中可以找到对该过程的基础 CLR 实现的引用。
+
+`sys.check_constraints` 每个作为 CHECK 约束的对象 (sys.objects.type = ‘C’) 均存在对应的一行。
+
+`sys.columns`  为包含列的对象（如视图或表）的每列返回一行。下面是包含列的对象类型的列表。
+                
+               表值程序集函数 (FT)
+               内联表值 SQL 函数 (IF)
+               内部表 (IT)
+               系统表 (S)
+               表值 SQL 函数 (TF)
+               用户表 (U)
+               视图 (V)
+
+`sys.computed_columns` sys.columns 中的每个计算列对应一行。
+
+`sys.default_constraints` 作为默认定义且 sys.objects.type = D 的每个对象在表中各对应一行，该默认定义是作为 CREATE TABLE 或 ALTER TABLE 语句的一部分创建的，而不是作为 CREATE DEFAULT 语句的一部分创建的。
+
+`sys.events` 导致触发器或事件通知激发的每个事件对应一行。这些事件表示在使用 CREATE TRIGGER 或 CREATE EVENT NOTIFICATION 创建触发器或事件通知时所指定的事件类型。
+
+`sys.event_notifications` 为作为事件通知的每个对象返回一行，且 sys.objects.type = EN。
+
+`sys.extended_procedures` 每个作为扩展存储过程且 sys.objects.type = X 的对象对应一行。因为扩展存储过程安装在 master 数据库中，它们只有在该数据库上下文中才可见。从任何其他数据库上下文中的sys.extended_procedures 视图中进行选择，将返回空的结果集。
+
+`sys.foreign_key_columns` 组成外键的每一列或列集在表中对应一行。
+
+`sys.foreign_keys` 每个作为 FOREIGN KEY 约束并且 sys.object.type = F 的对象都在表中占一行。
+
+`sys.function_order_columns` 针对每列返回一行，该列是公共语言运行时 (CLR) 表值函数 ORDER 表达式的一部分。
+
+`sys.identity_columns` 用作标识列的每列都在表中占一行。
+
+`sys.index_columns` 属于 sys.indexes 索引或未排序的表（堆）的每个列都对应一行。
+
+`sys.indexes` 每个表格对象（例如，表、视图或表值函数）的索引或堆都包含一行。
+
+`sys.key_constraints` 每个作为主键或唯一约束的对象对应一行。包括 sys.objects.type PK 和 UQ。
+
+`sys.numbered_procedure_parameters` 带编号过程的每个参数都在表中对应一行。当您创建带编号的存储过程时，基过程的编号为 1。所有后续过程的编号依次为 2、3等。sys.numbered_procedure_parameters 包含所有后续过程（编号大于等于 2）的参数定义。该视图不显示基存储过程（编号 = 1）的参数。基存储过程类似于无编号的存储过程。因此，它的参数表示在 sys.parameters (Transact-SQL) 中。
+
+`sys.numbered_procedures` 每个作为带编号的过程而创建的 SQL Server 存储过程都占一行。对于基（编号 = 1）存储过程，它不显示行。可以在诸如 sys.objects 和 sys.procedures 之类的视图中找到基存储过程的项。
+
+`sys.objects` 	在数据库中创建的每个用户定义的架构范围内的对象在该表中均对应一行。
+
+`sys.parameters` 接受参数的对象的每个参数在表中对应一行。如果对象是标量函数，则另有一行说明返回值。该行将有一个值为 0 的 parameter_id。
+
+`sys.partitions` 数据库中所有表和大多数类型的索引的每个分区在表中各对应一行。Fulltext、Spatial 和 XML 之类的特殊索引类型在此视图中不包括。SQL Server 2008 中所有表和索引都至少包含一个分区，无论它们是否已进行显式分区均为如此。
+
+`sys.procedures` 于同类过程并且 sys.objects.type = P、X、RF 和 PC 的每个对象对应一行。
+
+`sys.service_queues` 数据库中每个作为服务队列的对象（sys.objects.type = SQ）都在表中对应一行。
+
+`sys.spatial_index_tessellations` 表示有关每个空间索引的分割方案和参数的信息。
+
+`sys.spatial_indexes` 表示空间索引的主索引信息。
+
+`sys.sql_dependencies` 对在定义另一引用对象的 Transact-SQL 表达式或语句中引用的被引用的实体的每一依赖关系，均存在对应的一行。
+
+`sys.sql_expression_dependencies` 当前数据库中用户定义实体的每个按名称依赖项在此表中均占一行。当一个称为“被引用的实体”的实体按名称显示在另一个称为“引用实体”的实体的持久化 SQL 表达式中时，将创建这两个实体之间的依赖关系。例如，在视图定义中引用表时，作为引用实体的视图将依赖于表这个被引用的实体。如果删除该表，则该视图不可用。您可以使用此目录视图来报告以下实体的依赖关系信息：
+                                   
+                                  绑定到架构的实体。
+                                  非绑定到架构的实体。
+                                  跨数据库和跨服务器的实体。报告了实体名称；但实体 ID 尚未解析。
+                                  绑定到架构的实体的列级依赖关系。可以使用 sys.dm_sql_referenced_entities 返回非绑定到架构的对象的列级依赖关系。
+                                  服务器级别的 DDL 触发器（在 master 数据库的上下文中时）。
+
+`sys.sql_modules` 对每个 SQL 语言定义的模块对象都返回一行。类型为 P、RF、V、TR、FN、IF、TF 和 R 的对象均有关联的 SQL 模块。在此视图中，独立的默认值，即 D 类型的对象也具有 SQL 模块定义。有关这些类型的说明，请参阅 sys.objects 目录视图中的类型列。
+
+`sys.stats` U、V 或 TF 类型表格对象的每个统计信息都对应一行。
+
+`sys.stats_columns` sys.stats 统计信息包含的每列对应一行。
+
+`sys.synonyms` 在该视图中，sys.objects.type = SN 的每个同义词对象对应一行。
+
+`sys.table_types` 显示用户定义表类型的属性。表类型是指无法从其中声明表变量或表值参数的类型。每个表类型都包含 type_table_object_id，它是指向sys.objects 目录视图的外键。此 ID 可用于查询各种目录视图，查询方式与常规表的 object_id 类似，以便发现表类型的结构，如表的列、约束等。
+
+`sys.tables` 为每个表对象返回一行，当前仅用于 sys.objects.type = U 的表对象。
+
+`sys.trigger_event_types` 为可以激发触发器的每个事件或事件组返回一行。
+
+`sys.trigger_events` 触发触发器的每个事件对应一行。
+
+`sys.triggers` 每个类型为 TR 或 TA 的触发器对象对应一行。DML 触发器名称在架构范围内，因此，可在 sys.objects 中显示。DDL 触发器名称的作用域取决于父实体，只能在此视图中显示。parent_class 和 name 列唯一标识了数据库中的触发器。
+
+`sys.views` ys.objects.type = V 的每个视图对象在该表中对应一行。
+
+```

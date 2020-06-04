@@ -8,7 +8,7 @@ comments: true
 
 首先右键打开api所在解决方案的属性
 
-![](https://ichiehpan.github.io/images/微信截图_20191016113110.png)
+![]({{ "/assets/images/微信截图_20191016113110.png" | relative_url }})
 
 勾选输出下的`XML 文档文件`并保存, 这样在项目对应的目录下就生成了xml文件(eg. "bin")
 

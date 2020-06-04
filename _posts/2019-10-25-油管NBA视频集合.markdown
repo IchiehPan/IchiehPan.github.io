@@ -10,7 +10,7 @@ comments: true
 
 ##### 暴龍的救命絕技：不是鐵鎚的「波波之鎚」！｜追追熊戰術板
 <video
-src="https://ichiehpan.github.io/videos/暴龍的救命絕技：不是鐵鎚的「波波之鎚」！｜追追熊戰術板.mp4"
+src="{{ "/assets/videos/暴龍的救命絕技：不是鐵鎚的「波波之鎚」！｜追追熊戰術板.mp4" | relative_url }}"
 controls="controls" width="100%">
 </video>
 
@@ -20,7 +20,7 @@ controls="controls" width="100%">
 
 ##### 只會左手上籃就能統治禁區？Zion Williamson 全面解析｜追追熊戰術板
 <video
-src="https://ichiehpan.github.io/videos/只會左手上籃就能統治禁區？Zion Williamson 全面解析｜追追熊戰術板.mp4"
+src="{{ "/assets/videos/只會左手上籃就能統治禁區？Zion Williamson 全面解析｜追追熊戰術板.mp4" | relative_url }}"
 controls="controls" width="100%">
 </video>
 

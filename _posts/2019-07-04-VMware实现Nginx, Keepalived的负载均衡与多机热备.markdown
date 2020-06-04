@@ -17,7 +17,7 @@ ip: 192.168.8.113
 
 首先需要VMware创建两台Linux服务器, 网络配置为**桥接**
 
-![](https://ichiehpan.github.io/images/微信图片_20190704114216.jpg)
+![]({{ "/assets/images/微信图片_20190704114216.png" | relative_url }})
 
 两台机器分别安装`nginx`与`keepalived`
 
@@ -36,8 +36,9 @@ sudo systemctl status nginx
 sudo systemctl stauts keepalived
 ```
 
-![](https://ichiehpan.github.io/images/微信截图_20190704115609.png)
-![](https://ichiehpan.github.io/images/微信截图_20190704115719.png)
+![]({{ "/assets/images/微信截图_20190704115609.png" | relative_url }})
+
+![]({{ "/assets/images/微信截图_20190704115719.png" | relative_url }})
 
 修改
 /etc/nginx, /etc/keepalived下的配置文件
@@ -258,7 +259,9 @@ ichieh@192.168.8.110:~$ ip a s ens33
 ```
 
 下面动图为网络上寻找的, 方便理解
+
 ![](https://klionsec.github.io/img/keepalived%20start%20status.gif)
+
 ![](https://klionsec.github.io/img/keepalived%20nginx.gif)
 
 最后需注意`keepalived`只有当系统级别的宕机才会主动接管
